@@ -5,6 +5,7 @@ import { TourProvider } from '@/components/tour/tour-provider';
 import { Navbar } from '@/components/dashboard/navbar';
 import { Hero } from '@/components/dashboard/hero';
 import { FeatureCards } from '@/components/dashboard/feature-cards';
+import { JobsSection } from '@/components/dashboard/jobs-section';
 import { AnalyticsSection } from '@/components/dashboard/analytics-section';
 import { SettingsSection } from '@/components/dashboard/settings-section';
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
@@ -59,6 +60,7 @@ export function Dashboard({ tourSteps }: { tourSteps: TourStep[] }) {
               </Card>
             </div>
           </div>
+          <JobsSection />
           <AnalyticsSection />
           <SettingsSection />
         </main>
