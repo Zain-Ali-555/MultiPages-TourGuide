@@ -12,7 +12,7 @@ import { Button } from '../ui/button';
 import { FileText, Send, Sparkles } from 'lucide-react';
 import { Progress } from '../ui/progress';
 
-export function Dashboard({ tourSteps }: { tourSteps: TourStep[] }) {
+export function Dashboard({ tourSteps }: { tourSteps: Omit<TourStep, 'content'>[] }) {
   return (
     <TourProvider steps={tourSteps}>
       <div className="flex min-h-screen w-full flex-col">

@@ -2,12 +2,13 @@
 
 import React, { createContext, useContext, useState, useCallback, useEffect, ReactNode } from 'react';
 import TourStepComponent from './tour-step';
+import { generateTourContent } from '@/ai/flows/generate-tour-content';
 
 export type TourStep = {
   id: string;
   target: string;
   title: string;
-  content: string;
+  content: ReactNode;
   placement?: 'top' | 'bottom' | 'left' | 'right' | 'center';
   moduleName: string;
   featureDescription: string;
@@ -29,43 +30,73 @@ const TourContext = createContext<TourContextType | undefined>(undefined);
 
 interface TourProviderProps {
   children: ReactNode;
-  steps: TourStep[];
+  steps: Omit<TourStep, 'content'>[];
 }
 
-export const TourProvider: React.FC<TourProviderProps> = ({ children, steps }) => {
+export const TourProvider: React.FC<TourProviderProps> = ({ children, steps: initialSteps }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
+  const [steps, setSteps] = useState<TourStep[]>(initialSteps.map(s => ({...s, content: s.featureDescription})));
 
+  const fetchStepContent = useCallback(async (index: number) => {
+    const step = steps[index];
+    // Only fetch if content is still the fallback
+    if (step.content === step.featureDescription) {
+      try {
+        const result = await generateTourContent({
+          moduleName: step.moduleName,
+          featureDescription: step.featureDescription,
+        });
+        setSteps(prevSteps => {
+          const newSteps = [...prevSteps];
+          newSteps[index] = { ...newSteps[index], content: result.tourContent };
+          return newSteps;
+        });
+      } catch (error) {
+        if (error instanceof Error) {
+          console.error(`Failed to generate content for ${step.moduleName}:`, error.message);
+        } else {
+          console.error(`Failed to generate content for ${step.moduleName}:`, String(error));
+        }
+        // Content remains the fallback description on error
+      }
+    }
+  }, [steps]);
+  
   const start = useCallback(() => {
     setCurrentStepIndex(0);
     setIsOpen(true);
     document.body.style.overflow = 'hidden';
-  }, []);
+    fetchStepContent(0);
+  }, [fetchStepContent]);
 
   const stop = useCallback(() => {
     setIsOpen(false);
     document.body.style.overflow = '';
   }, []);
 
-  const next = useCallback(() => {
-    if (currentStepIndex < steps.length - 1) {
-      setCurrentStepIndex(prev => prev + 1);
-    } else {
-      stop();
-    }
-  }, [currentStepIndex, steps.length, stop]);
-
-  const prev = useCallback(() => {
-    if (currentStepIndex > 0) {
-      setCurrentStepIndex(prev => prev - 1);
-    }
-  }, [currentStepIndex]);
-  
   const goTo = useCallback((index: number) => {
     if (index >= 0 && index < steps.length) {
       setCurrentStepIndex(index);
+      fetchStepContent(index);
     }
-  }, [steps.length]);
+  }, [steps.length, fetchStepContent]);
+
+  const next = useCallback(() => {
+    const nextIndex = currentStepIndex + 1;
+    if (nextIndex < steps.length) {
+      goTo(nextIndex);
+    } else {
+      stop();
+    }
+  }, [currentStepIndex, steps.length, stop, goTo]);
+
+  const prev = useCallback(() => {
+    const prevIndex = currentStepIndex - 1;
+    if (prevIndex >= 0) {
+      goTo(prevIndex);
+    }
+  }, [currentStepIndex, goTo]);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
