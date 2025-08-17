@@ -7,7 +7,7 @@ export const tourSteps: Omit<TourStep, 'content'>[] = [
     title: '👋 Welcome to AI Jobs!',
     placement: 'bottom',
     moduleName: 'Welcome Message',
-    featureDescription: 'A friendly welcome message for the user, introducing them to the AI Jobs Dashboard and prompting them to start the tour.',
+    featureDescription: 'A brief welcome to the AI Jobs Dashboard.',
   },
   {
     id: 'step-2-navbar',
@@ -15,7 +15,7 @@ export const tourSteps: Omit<TourStep, 'content'>[] = [
     title: '🧭 Navigation Bar',
     placement: 'bottom',
     moduleName: 'Navbar',
-    featureDescription: 'The main navigation bar at the top of the page. It contains the logo, primary navigation links (Dashboard, Jobs, Analytics, Settings), and the user profile menu.',
+    featureDescription: 'The main navigation with links to key sections.',
   },
   {
     id: 'step-3-profile',
@@ -23,7 +23,7 @@ export const tourSteps: Omit<TourStep, 'content'>[] = [
     title: '👤 Profile Menu',
     placement: 'bottom',
     moduleName: 'Profile Menu',
-    featureDescription: 'The user profile menu, which allows access to account settings, billing information, and the logout option.',
+    featureDescription: 'Access your account settings, billing, and logout.',
   },
   {
     id: 'step-4-progress',
@@ -31,7 +31,7 @@ export const tourSteps: Omit<TourStep, 'content'>[] = [
     title: '📊 Progress Tracker',
     placement: 'left',
     moduleName: 'Progress Tracker',
-    featureDescription: 'A widget that shows the user\'s progress, such as profile completion and the number of job applications sent. It helps motivate users to complete their tasks.',
+    featureDescription: 'Track your profile completion and applications sent.',
   },
   {
     id: 'step-5-features',
@@ -39,7 +39,7 @@ export const tourSteps: Omit<TourStep, 'content'>[] = [
     title: '✨ Your AI Toolkit',
     placement: 'bottom',
     moduleName: 'Feature Cards Section',
-    featureDescription: 'An introduction to the main AI-powered features available on the dashboard. These tools are designed to help the user in their job search.',
+    featureDescription: 'An overview of the AI-powered tools available to you.',
   },
   {
     id: 'step-6-resume-card',
@@ -47,7 +47,7 @@ export const tourSteps: Omit<TourStep, 'content'>[] = [
     title: '📄 AI Resume Builder',
     placement: 'bottom',
     moduleName: 'AI Resume Builder Card',
-    featureDescription: 'This feature helps users create a professional, optimized resume using AI. It suggests improvements and tailors the resume to specific job descriptions.',
+    featureDescription: 'Create a professional resume with help from AI.',
   },
   {
     id: 'step-7-analytics',
@@ -55,7 +55,7 @@ export const tourSteps: Omit<TourStep, 'content'>[] = [
     title: '📈 Analytics Overview',
     placement: 'top',
     moduleName: 'Analytics Section',
-    featureDescription: 'An introduction to the analytics section, which provides insights into the user\'s job application performance and resume strength over time.',
+    featureDescription: 'Insights into your job application performance.',
   },
   {
     id: 'step-8-bar-chart',
@@ -63,7 +63,7 @@ export const tourSteps: Omit<TourStep, 'content'>[] = [
     title: '📥 Applications Chart',
     placement: 'top',
     moduleName: 'Applications Per Month Chart',
-    featureDescription: 'This bar chart visualizes the number of job applications the user has sent each month, allowing them to track their activity.',
+    featureDescription: 'Visualize your monthly job application activity.',
   },
   {
     id: 'step-9-settings',
@@ -71,7 +71,7 @@ export const tourSteps: Omit<TourStep, 'content'>[] = [
     title: '⚙️ Settings',
     placement: 'top',
     moduleName: 'Settings Section',
-    featureDescription: 'The settings area where users can manage their account information, such as name and email, and other preferences.',
+    featureDescription: 'Manage your account information and preferences.',
   },
   {
     id: 'step-10-finish',
@@ -79,6 +79,6 @@ export const tourSteps: Omit<TourStep, 'content'>[] = [
     title: '🎉 You\'re All Set!',
     placement: 'center',
     moduleName: 'Tour Completion',
-    featureDescription: 'A final congratulatory message marking the end of the tour. It encourages the user to start using the dashboard and reminds them they can replay the tour anytime.',
+    featureDescription: 'You have completed the tour! Feel free to explore.',
   },
 ];
