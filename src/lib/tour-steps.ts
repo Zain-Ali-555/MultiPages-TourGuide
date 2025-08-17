@@ -34,11 +34,19 @@ export const tourSteps: TourStep[] = [
     path: '/',
   },
   {
+    id: 'step-4a-nav-to-jobs',
+    target: '',
+    title: '🚀 Moving to Jobs',
+    placement: 'center',
+    content: 'Next, let\'s check out the recommended jobs page.',
+    path: '/', 
+  },
+  {
     id: 'step-5-jobs-page',
     target: '#jobs-section',
     title: '💼 Recommended Jobs',
     placement: 'top',
-    content: 'Now let\'s head to the Jobs page. Here you can discover job opportunities tailored just for you.',
+    content: 'Here you can discover job opportunities tailored just for you.',
     path: '/jobs',
   },
   {
@@ -50,11 +58,19 @@ export const tourSteps: TourStep[] = [
     path: '/jobs',
   },
   {
+    id: 'step-6a-nav-to-analytics',
+    target: '',
+    title: '🚀 Moving to Analytics',
+    placement: 'center',
+    content: 'Let\'s head over to the analytics page to see your progress.',
+    path: '/jobs', 
+  },
+  {
     id: 'step-7-analytics-page',
     target: '#analytics',
     title: '📈 Analytics Overview',
     placement: 'top',
-    content: 'Next up is Analytics. Get insights into your job application performance and resume scores.',
+    content: 'Get insights into your job application performance and resume scores.',
     path: '/analytics',
   },
   {
@@ -66,11 +82,19 @@ export const tourSteps: TourStep[] = [
     path: '/analytics',
   },
   {
+    id: 'step-8a-nav-to-settings',
+    target: '',
+    title: '🚀 Moving to Settings',
+    placement: 'center',
+    content: 'Almost done! Let\'s go to the settings page.',
+    path: '/analytics',
+  },
+  {
     id: 'step-9-settings-page',
     target: '#settings',
     title: '⚙️ Settings',
     placement: 'top',
-    content: 'Finally, let\'s check the Settings page where you can manage your account information.',
+    content: 'Here you can manage your account information.',
     path: '/settings',
   },
   {
