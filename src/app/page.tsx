@@ -13,7 +13,11 @@ export default async function Home() {
         });
         return { ...step, content: result.tourContent };
       } catch (error) {
-        console.error(`Failed to generate content for ${step.moduleName}:`, error);
+        if (error instanceof Error) {
+          console.error(`Failed to generate content for ${step.moduleName}:`, error.message);
+        } else {
+          console.error(`Failed to generate content for ${step.moduleName}:`, String(error));
+        }
         // Fallback content in case of AI error
         return { ...step, content: step.featureDescription };
       }
