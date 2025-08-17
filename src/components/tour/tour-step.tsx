@@ -1,14 +1,14 @@
 "use client";
 
 import { useTour } from './tour-provider';
-import { useLayoutEffect, useState, useRef, useEffect } from 'react';
+import { useLayoutEffect, useState, useRef } from 'react';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
-import { ArrowLeft, ArrowRight, CheckCircle2, Circle, CircleDot, X } from 'lucide-react';
+import { ArrowLeft, ArrowRight, X } from 'lucide-react';
+import { Progress } from '@/components/ui/progress';
 
 const getPosition = (targetRect: DOMRect, placement: string = 'bottom') => {
-  const popoverHeight = 350; // Approximate height of the popover
+  const popoverHeight = 300; // Approximate height of the popover
   const popoverWidth = 384; // width is w-96
   const offset = 16;
   const positions: { [key: string]: { top: number, left: number } } = {
@@ -46,7 +46,7 @@ const getPosition = (targetRect: DOMRect, placement: string = 'bottom') => {
 }
 
 export default function TourStepComponent() {
-  const { currentStep, currentStepIndex, steps, next, prev, stop, goTo } = useTour();
+  const { currentStep, currentStepIndex, steps, next, prev, stop } = useTour();
   const [targetRect, setTargetRect] = useState<DOMRect | null>(null);
   const [popoverPosition, setPopoverPosition] = useState({ top: 0, left: 0 });
   const popoverRef = useRef<HTMLDivElement>(null);
@@ -88,6 +88,8 @@ export default function TourStepComponent() {
   const overlayPath = targetRect
     ? `M0,0H${window.innerWidth}V${window.innerHeight}H0V0ZM${targetRect.left - 4},${targetRect.top - 4}V${targetRect.bottom + 4}H${targetRect.right + 4}V${targetRect.top - 4}H${targetRect.left - 4}Z`
     : `M0,0H${window.innerWidth}V${window.innerHeight}H0V0Z`;
+  
+  const progressValue = ((currentStepIndex + 1) / steps.length) * 100;
 
   return (
     <>
@@ -121,21 +123,9 @@ export default function TourStepComponent() {
         </CardHeader>
         <CardContent>
           <p className="text-sm">{currentStep.content}</p>
-          <Accordion type="single" collapsible className="w-full mt-4">
-            <AccordionItem value="item-1">
-              <AccordionTrigger>Tour Progress</AccordionTrigger>
-              <AccordionContent>
-                <div className="space-y-2 pr-4 max-h-32 overflow-y-auto">
-                  {steps.map((step, index) => (
-                    <button key={step.id} onClick={() => goTo(index)} className={`flex items-center gap-3 text-left w-full p-1 rounded-md transition-colors hover:bg-muted ${index > currentStepIndex ? 'opacity-60' : ''}`}>
-                      {index < currentStepIndex ? <CheckCircle2 size={16} className="text-primary flex-shrink-0" /> : (index === currentStepIndex ? <CircleDot size={16} className="text-primary flex-shrink-0" /> : <Circle size={16} className="text-muted-foreground flex-shrink-0" />)}
-                      <span className={`text-sm ${index === currentStepIndex ? 'font-semibold text-primary' : ''}`}>{step.title}</span>
-                    </button>
-                  ))}
-                </div>
-              </AccordionContent>
-            </AccordionItem>
-          </Accordion>
+          <div className="mt-4">
+            <Progress value={progressValue} className="w-full" />
+          </div>
         </CardContent>
         <CardFooter className="flex justify-between">
           <Button variant="ghost" onClick={stop}>Skip tour</Button>
