@@ -1,8 +1,19 @@
 "use client";
 
 import { Dashboard } from '@/components/dashboard/dashboard';
-import { tourSteps as staticTourSteps } from '@/lib/tour-steps';
+import { useTour } from '@/components/tour/tour-provider';
+import { useEffect } from 'react';
 
 export default function HomePage() {
-  return <Dashboard tourSteps={staticTourSteps} />;
+  const { isTourOpen, start, steps } = useTour();
+
+  useEffect(() => {
+    // If the tour was running and the user lands here, restart it if not already open.
+    const tourStatus = localStorage.getItem('tourStatus');
+    if (tourStatus === 'running' && !isTourOpen) {
+      start();
+    }
+  }, [isTourOpen, start]);
+
+  return <Dashboard tourSteps={steps} />;
 }

@@ -1,13 +1,9 @@
 "use client";
 
 import type { TourStep } from '@/components/tour/tour-provider';
-import { TourProvider } from '@/components/tour/tour-provider';
 import { Navbar } from '@/components/dashboard/navbar';
 import { Hero } from '@/components/dashboard/hero';
 import { FeatureCards } from '@/components/dashboard/feature-cards';
-import { JobsSection } from '@/components/dashboard/jobs-section';
-import { AnalyticsSection } from '@/components/dashboard/analytics-section';
-import { SettingsSection } from '@/components/dashboard/settings-section';
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
 import { Button } from '../ui/button';
 import { FileText, Send, Sparkles } from 'lucide-react';
@@ -15,7 +11,6 @@ import { Progress } from '../ui/progress';
 
 export function Dashboard({ tourSteps }: { tourSteps: TourStep[] }) {
   return (
-    <TourProvider steps={tourSteps}>
       <div className="flex min-h-screen w-full flex-col">
         <Navbar />
         <main className="flex-1 bg-background">
@@ -60,9 +55,6 @@ export function Dashboard({ tourSteps }: { tourSteps: TourStep[] }) {
               </Card>
             </div>
           </div>
-          <JobsSection />
-          <AnalyticsSection />
-          <SettingsSection />
         </main>
         <footer className="border-t">
           <div className="container mx-auto flex items-center justify-between px-4 py-4 md:px-6">
@@ -70,6 +62,5 @@ export function Dashboard({ tourSteps }: { tourSteps: TourStep[] }) {
           </div>
         </footer>
       </div>
-    </TourProvider>
   );
 }

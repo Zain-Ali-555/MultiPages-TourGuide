@@ -12,25 +12,44 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { useTour } from "../tour/tour-provider"
+import Link from "next/link"
+import { usePathname } from "next/navigation"
+import { cn } from "@/lib/utils"
 
 export function Navbar() {
   const { start } = useTour()
+  const pathname = usePathname()
+
+  const navLinks = [
+    { href: "/", label: "Dashboard" },
+    { href: "/jobs", label: "Jobs" },
+    { href: "/analytics", label: "Analytics" },
+    { href: "/settings", label: "Settings" },
+  ]
   
   return (
     <header id="navbar" className="sticky top-0 z-40 w-full border-b bg-card">
       <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-6">
-        <a href="#" className="flex items-center gap-2">
+        <Link href="/" className="flex items-center gap-2">
           <Rocket className="h-7 w-7 text-primary" />
           <span className="text-xl font-bold">TourGuideAI</span>
-        </a>
+        </Link>
         <nav className="hidden items-center gap-6 text-sm font-medium md:flex">
-          <a href="#" className="transition-colors hover:text-primary">Dashboard</a>
-          <a href="#" className="text-muted-foreground transition-colors hover:text-primary">Jobs</a>
-          <a href="#" className="text-muted-foreground transition-colors hover:text-primary">Analytics</a>
-          <a href="#" className="text-muted-foreground transition-colors hover:text-primary">Settings</a>
+          {navLinks.map((link) => (
+            <Link 
+              key={link.href} 
+              href={link.href} 
+              className={cn(
+                "transition-colors hover:text-primary",
+                pathname === link.href ? "text-primary" : "text-muted-foreground"
+              )}
+            >
+              {link.label}
+            </Link>
+          ))}
         </nav>
         <div className="flex items-center gap-4">
-          <Button id="replay-tour-btn" variant="outline" size="sm" onClick={start}>Replay Tour</Button>
+          <Button id="replay-tour-btn" variant="outline" size="sm" onClick={() => start(true)}>Replay Tour</Button>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <button id="profile-menu" className="focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 rounded-full">
