@@ -1,8 +1,5 @@
-"use client";
-
-import { Dashboard } from '@/components/dashboard/dashboard';
-import { tourSteps as staticTourSteps } from '@/lib/tour-steps';
+import HomePage from './home-page';
 
 export default function Home() {
-  return <Dashboard tourSteps={staticTourSteps} />;
+  return <HomePage />;
 }
